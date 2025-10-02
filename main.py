@@ -17,8 +17,8 @@ def wish_me():
     speak(greeting)
     print(greeting)
 
-def assistant_response(command):
-    """Default assistant response"""
+def assistant_Response(command):
+    """Default assistant Response"""
     return f"I'm here to help, but I can't perform '{command}'."
 
 if __name__ == "__main__":
@@ -36,12 +36,12 @@ if __name__ == "__main__":
         if command.lower().startswith("open "):
             app_name = command[5:].strip()  # remove "open " from command
             if open_system_app(app_name):
-                response = f"Opening {app_name}..."
+                Response = f"Opening {app_name}..."
             else:
-                response = f"Sorry, I don't know how to open '{app_name}'."
+                Response = f"Sorry, I don't know how to open '{app_name}'."
         else:
-            # Normal assistant response
-            response = assistant_response(command)
+            # Normal assistant Response
+            Response = assistant_Response(command)
 
-        print(f"Jarvis: {response}")
-        speak(response)
+        print(f"Jarvis: {Response}")
+        speak(Response)

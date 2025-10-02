@@ -1,5 +1,8 @@
 from Speech.speak import speak
 from datetime import datetime
+import os
+
+os.system('cls' if os.name == 'nt' else 'clear')
 
 def wish_me():
     """Greet user according to current time"""
@@ -12,9 +15,9 @@ def wish_me():
     else:
         greeting = "Good Evening!"
     
-    speak(greeting)
-    print(greeting)
     
+    print(greeting)
+    speak(greeting)
 
 if __name__ == "__main__":
     wish_me()

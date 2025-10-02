@@ -21,9 +21,11 @@ def wish_me():
 def personal_assistant():
     """Main loop for personal assistant"""
     wish_me()
+    
+
     print("I am your assistant. You can ask me to open apps or chat with me. Type 'bye' to quit.")
     speak("I am your assistant. You can ask me to open apps or chat with me. Type 'bye' to quit.")
-
+    
 
     while True:
         command = input("\nYou: ").strip()

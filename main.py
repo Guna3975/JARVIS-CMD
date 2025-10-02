@@ -14,6 +14,7 @@ def wish_me():
     
     speak(greeting)
     print(greeting)
+    speak(greeting)
 
 if __name__ == "__main__":
     wish_me()

@@ -6,7 +6,6 @@ import os
 os.system("cls")
 
 def wish_me():
-    """Greet user according to current time"""
     hour = datetime.now().hour
     if 0 <= hour < 12:
         greeting = "Good Morning!"
@@ -15,33 +14,34 @@ def wish_me():
     else:
         greeting = "Good Evening!"
     
-    print(greeting)
     speak(greeting)
+    print(greeting)
 
-def personal_assistant():
-    """Main loop for personal assistant"""
+def assistant_response(command):
+    """Default assistant response"""
+    return f"I'm here to help, but I can't perform '{command}'."
+
+if __name__ == "__main__":
     wish_me()
-    print("I am your assistant. You can ask me to open apps or chat with me. Type 'bye' to quit.")
-    speak("I am your assistant. You can ask me to open apps or chat with me. Type 't' to quit.")
-
+    speak("I am ready to assist you. Type 'exit' to quit.")
 
     while True:
         command = input("\nYou: ").strip()
-        
-        if command.lower() == "bye":
-            print("Jarvis: Goodbye! Have a nice day.")
-            speak("Goodbye! Have a nice day.")
+        if command.lower() == "exit":
+            speak("Goodbye! Take care.")
+            print("Jarvis: Goodbye! Take care.")
             break
 
-        # Try to open system app
-        response = open_system_app(command)
-        
-        # If app not recognized, respond like a personal assistant
-        if "don't know" in response:
-            response = f"I'm here to help, but I can't open '{command}'. Maybe try another app?"
+        # Check if user wants to open an app
+        if command.lower().startswith("open "):
+            app_name = command[5:].strip()  # remove "open " from command
+            if open_system_app(app_name):
+                response = f"Opening {app_name}..."
+            else:
+                response = f"Sorry, I don't know how to open '{app_name}'."
+        else:
+            # Normal assistant response
+            response = assistant_response(command)
 
         print(f"Jarvis: {response}")
         speak(response)
-
-if __name__ == "__main__":
-    personal_assistant()

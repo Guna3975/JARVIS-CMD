@@ -1,34 +1,40 @@
+from Speech.speak import speak
+from datetime import datetime
 import os
-import subprocess
 
-def open_system_app(command):
-    command = command.lower()
+os.system("cls")
 
-    # Common folders
-    folders = {
-        "documents": os.path.join(os.environ['USERPROFILE'], 'Documents'),
-        "downloads": os.path.join(os.environ['USERPROFILE'], 'Downloads'),
-        "desktop": os.path.join(os.environ['USERPROFILE'], 'Desktop'),
-        "this pc": "C:\\"
-    }
+def wish_me():
+    hour = datetime.now().hour
+    if 0 <= hour < 12:
+        greeting = "Good Morning!"
+    elif 12 <= hour < 18:
+        greeting = "Good Afternoon!"
+    else:
+        greeting = "Good Evening!"
+    
+    speak(greeting)
+    print(greeting)
 
-    for key, path in folders.items():
-        if key in command:
-            os.startfile(path)
-            return f"Opening {key}"
+def assistant_response(command):
+    return f"I'm here to help, but I can't perform '{command}'."
 
-    # Start Menu shortcuts
-    start_menu_paths = [
-        os.path.join(os.environ['ProgramData'], "Microsoft", "Windows", "Start Menu", "Programs"),
-        os.path.join(os.environ['APPDATA'], "Microsoft", "Windows", "Start Menu", "Programs")
-    ]
+if __name__ == "__main__":
+    wish_me()
+    speak("I am ready to assist you. Type 'exit' to quit.")
 
-    for path in start_menu_paths:
-        for root, dirs, files in os.walk(path):
-            for file in files:
-                if file.lower().endswith(".lnk") and command in file.lower():
-                    shortcut_path = os.path.join(root, file)
-                    subprocess.Popen(['powershell', '-Command', f'Start-Process "{shortcut_path}"'])
-                    return f"Opening {file.replace('.lnk','')}"
+    while True:
+        command = input("\nYou: ").strip()
+        if command.lower() == "exit":
+            speak("Goodbye! Take care.")
+            print("Jarvis: Goodbye! Take care.")
+            break
 
-    return "Sorry, I cannot find that app"
+        if command.lower().startswith("open "):
+            app_name = command[5:].strip()
+            response = open_system_app(app_name)
+        else:
+            response = assistant_response(command)
+
+        print(f"Jarvis: {response}")
+        speak(response)

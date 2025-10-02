@@ -22,7 +22,7 @@ def personal_assistant():
     """Main loop for personal assistant"""
     wish_me()
     print("I am your assistant. You can ask me to open apps or chat with me. Type 'bye' to quit.")
-    speak("I am your assistant. You can ask me to open apps or chat with me. Type 'bye' to quit.")
+    speak("I am your assistant. You can ask me to open apps or chat with me. Type 't' to quit.")
 
 
     while True:
